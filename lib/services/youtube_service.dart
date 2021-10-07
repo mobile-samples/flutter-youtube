@@ -23,12 +23,7 @@ class VideoClient {
     Map<String, String> parameters = {
       'regionCode': regionCode!.isNotEmpty ? regionCode : '',
     };
-    late String baseUrl = '';
-    if (Platform.isAndroid) {
-      baseUrl = baseUrlAndroid;
-    } else if (Platform.isIOS) {
-      baseUrl = baseUrlIOS;
-    }
+    late String baseUrl = getUrl();
     Uri uri = Uri.http(baseUrl, '/tube/category', parameters);
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
@@ -52,12 +47,7 @@ class VideoClient {
       'id': ids.join(),
       'fields': fields!.isNotEmpty ? fields.join() : 'id,title,mediumThumbnail'
     };
-    late String baseUrl = '';
-    if (Platform.isAndroid) {
-      baseUrl = baseUrlAndroid;
-    } else if (Platform.isIOS) {
-      baseUrl = baseUrlIOS;
-    }
+    late String baseUrl = getUrl();
     Uri uri = Uri.http(baseUrl, '/tube/channels/list', parameters);
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
@@ -79,12 +69,7 @@ class VideoClient {
     Map<String, String> parameters = {
       'fields': 'id,title,mediumThumbnail,channels'
     };
-    late String baseUrl = '';
-    if (Platform.isAndroid) {
-      baseUrl = baseUrlAndroid;
-    } else if (Platform.isIOS) {
-      baseUrl = baseUrlIOS;
-    }
+    late String baseUrl = getUrl();
     Uri uri = Uri.http(baseUrl, '/tube/channels/$id', parameters);
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
@@ -108,12 +93,7 @@ class VideoClient {
       'fields':
           'id,title,mediumThumbnail,duration,categoryId,channelTitle,channelId,count',
     };
-    late String baseUrl = '';
-    if (Platform.isAndroid) {
-      baseUrl = baseUrlAndroid;
-    } else if (Platform.isIOS) {
-      baseUrl = baseUrlIOS;
-    }
+    late String baseUrl = getUrl();
     Uri uri = Uri.http(baseUrl, '/tube/playlists', parameters);
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
@@ -142,12 +122,7 @@ class VideoClient {
       'fields':
           'id,title,mediumThumbnail,duration,categoryId,channelTitle,channelId'
     };
-    late String baseUrl = '';
-    if (Platform.isAndroid) {
-      baseUrl = baseUrlAndroid;
-    } else if (Platform.isIOS) {
-      baseUrl = baseUrlIOS;
-    }
+    late String baseUrl = getUrl();
     Uri uri = Uri.http(baseUrl, '/tube/videos/popular', parameters);
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
@@ -170,12 +145,7 @@ class VideoClient {
       'fields':
           'id,title,mediumThumbnail,duration,categoryId,channelTitle,channelId'
     };
-    late String baseUrl = '';
-    if (Platform.isAndroid) {
-      baseUrl = baseUrlAndroid;
-    } else if (Platform.isIOS) {
-      baseUrl = baseUrlIOS;
-    }
+    late String baseUrl = getUrl();
     Uri uri = Uri.http(baseUrl, '/tube/videos/$videoId/related', parameters);
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
@@ -199,12 +169,7 @@ class VideoClient {
           'id,title,mediumThumbnail,duration,categoryId,channelTitle,channelId',
       'q': q,
     };
-    late String baseUrl = '';
-    if (Platform.isAndroid) {
-      baseUrl = baseUrlAndroid;
-    } else if (Platform.isIOS) {
-      baseUrl = baseUrlIOS;
-    }
+    late String baseUrl = getUrl();
     Uri uri = Uri.http(baseUrl, '/tube/videos/search', parameters);
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
@@ -229,12 +194,7 @@ class VideoClient {
       'playlistId': playlistId!.isEmpty ? '' : playlistId,
       'channelId': channelId!.isEmpty ? '' : channelId,
     };
-    late String baseUrl = '';
-    if (Platform.isAndroid) {
-      baseUrl = baseUrlAndroid;
-    } else if (Platform.isIOS) {
-      baseUrl = baseUrlIOS;
-    }
+    late String baseUrl = getUrl();
     Uri uri = Uri.http(baseUrl, '/tube/videos', parameters);
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
@@ -250,12 +210,7 @@ class VideoClient {
   }
 
   Future<List<Channel>> getSubscriptions(String channelId) async {
-    late String baseUrl = '';
-    if (Platform.isAndroid) {
-      baseUrl = baseUrlAndroid;
-    } else if (Platform.isIOS) {
-      baseUrl = baseUrlIOS;
-    }
+    late String baseUrl = getUrl();
     Uri uri = Uri.http(baseUrl, '/tube/channels/subscriptions/$channelId');
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
