@@ -21,9 +21,7 @@ class _SubscriptionsState extends State<Subscriptions> {
   bool _isLoading = true;
 
   handleGetSubscriptions() async {
-    Channel res = await APIService.instance.getChannel(
-      channelId: widget.channelId,
-    );
+    Channel res = await VideoClient.instance.getChannel(widget.channelId, null);
     if (res.channels.length > 0) {
       setState(() {
         channels.addAll(res.channels);

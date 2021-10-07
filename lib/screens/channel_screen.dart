@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_app/models/Model.dart';
-import 'package:youtube_app/screens/channels/playlistsTab/playlist_channel_screen.dart';
-import 'package:youtube_app/screens/channels/channlesTab/subscription_screen.dart';
-import 'package:youtube_app/screens/channels/videosTab/video_channel_screen.dart';
+import 'package:youtube_app/screens/channels/channles-tab/subscription_screen.dart';
+import 'package:youtube_app/screens/channels/playlists-tab/playlist_channel_screen.dart';
+import 'package:youtube_app/screens/channels/videos-tab/video_channel_screen.dart';
 import 'package:youtube_app/services/youtube_service.dart';
 import 'package:youtube_app/widgets/loading.dart';
 
@@ -50,9 +50,8 @@ class _ChannelScreenState extends State<ChannelScreen>
   }
 
   _getChannelFromYoutube() async {
-    Channel channelRes = await APIService.instance.getChannel(
-      channelId: widget.channelId,
-    );
+    Channel channelRes =
+        await VideoClient.instance.getChannel(widget.channelId, null);
     setState(() {
       channel = channelRes;
       _loading = false;

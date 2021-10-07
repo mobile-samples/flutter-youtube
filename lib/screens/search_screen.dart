@@ -34,11 +34,8 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   _handleSearch(search) async {
-    ListResultVideo res = await APIService.instance.getSearchVideos(
-      q: search,
-      max: 5,
-      nextPageToken: '',
-    );
+    ListResultVideo res =
+        await VideoClient.instance.searchVideos(search, 5, '', null);
     List<Video> videos = [];
     videos.addAll(res.list);
     setState(() {
@@ -49,11 +46,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
   _handleLoadMore() async {
     if (nextPageToken != '') {
-      ListResultVideo res = (await APIService.instance.getSearchVideos(
-        q: myController.text,
-        max: 1,
-        nextPageToken: nextPageToken,
-      ));
+      ListResultVideo res = (await VideoClient.instance
+          .searchVideos(myController.text, 1, nextPageToken, null));
       if (res.nextPageToken != nextPageToken) {
         setState(() {
           videoList.addAll(res.list);

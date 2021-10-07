@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_app/models/Model.dart';
-import 'package:youtube_app/screens/channels/playlistsTab/videoPlaylist/widgets/action_list.dart';
+import 'package:youtube_app/screens/channels/playlists-tab/videoPlaylist/widgets/action_list.dart';
 
 class PlaylistInfoBox extends StatelessWidget {
   const PlaylistInfoBox({Key? key, required this.playlist}) : super(key: key);

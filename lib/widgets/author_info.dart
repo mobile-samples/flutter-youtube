@@ -25,9 +25,8 @@ class _AuthorInfor extends State<AuthorInfor> {
 
   _initVideo() async {
     try {
-      Channel channelRes = await APIService.instance.getChannel(
-        channelId: widget.channelId,
-      );
+      Channel channelRes =
+          await VideoClient.instance.getChannel(widget.channelId, null);
       setState(() {
         channel = channelRes;
         loading = false;

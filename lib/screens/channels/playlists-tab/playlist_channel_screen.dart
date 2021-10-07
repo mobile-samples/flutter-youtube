@@ -37,11 +37,8 @@ class _PlaylistChannelState extends State<PlaylistChannel> {
   }
 
   handleGetPlaylistFromChannel() async {
-    ListResultPlaylist res = await APIService.instance.getChannelPlaylists(
-      channelId: widget.channelId,
-      max: 5,
-      nextPageToken: nextPageToken,
-    );
+    ListResultPlaylist res = await VideoClient.instance
+        .getChannelPlaylists(widget.channelId, 5, nextPageToken, null);
 
     setState(() {
       playlistsChannel = res.list;
@@ -58,11 +55,8 @@ class _PlaylistChannelState extends State<PlaylistChannel> {
     setState(() {
       isLoading = true;
     });
-    ListResultPlaylist res = await APIService.instance.getChannelPlaylists(
-      channelId: widget.channelId,
-      max: 1,
-      nextPageToken: nextPageToken,
-    );
+    ListResultPlaylist res = await VideoClient.instance
+        .getChannelPlaylists(widget.channelId, 1, nextPageToken, null);
     if (res.nextPageToken != nextPageToken && nextPageToken != '') {
       setState(() {
         playlistsChannel.addAll(res.list);

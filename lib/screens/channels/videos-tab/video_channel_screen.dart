@@ -23,12 +23,8 @@ class _VideoChannelScreenState extends State<VideoChannelScreen> {
   bool loadingFirst = true;
 
   handleGetVideoFromChannel() async {
-    ListResultVideo res = (await APIService.instance.getVideoList(
-      playlistId: '',
-      channelId: widget.channelId,
-      max: 4,
-      nextPageToken: '',
-    ));
+    ListResultVideo res = (await VideoClient.instance
+        .getVideoList('', widget.channelId, 4, '', null));
     setState(() {
       nextPageToken = res.nextPageToken;
       videosChannel = res;
@@ -38,12 +34,8 @@ class _VideoChannelScreenState extends State<VideoChannelScreen> {
 
   handleLoadMore() async {
     if (nextPageToken != '') {
-      ListResultVideo res = (await APIService.instance.getVideoList(
-        playlistId: '',
-        channelId: widget.channelId,
-        max: 1,
-        nextPageToken: nextPageToken,
-      ));
+      ListResultVideo res = (await VideoClient.instance
+          .getVideoList('', widget.channelId, 1, nextPageToken, null));
       List<Video> newList = videosChannel.list;
       if (res.nextPageToken != nextPageToken) {
         res.list.forEach((video) {

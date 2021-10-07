@@ -107,21 +107,21 @@ class SubChannels {
   }
 }
 
-class Category {
+class VideoCategory {
   final String id;
   final String title;
   final bool assignable;
   final String channelId;
 
-  Category(
+  VideoCategory(
     this.id,
     this.title,
     this.assignable,
     this.channelId,
   );
 
-  factory Category.fromMap(Map<String, dynamic> json) {
-    return Category(
+  factory VideoCategory.fromMap(Map<String, dynamic> json) {
+    return VideoCategory(
       json['id'],
       json['title'],
       json['assignable'],

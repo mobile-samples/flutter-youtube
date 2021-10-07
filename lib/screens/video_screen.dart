@@ -29,8 +29,12 @@ class _VideoScreenState extends State<VideoScreen> {
   }
 
   _initVideo() async {
-    ListResultVideo videoRes = await APIService.instance
-        .getRelatedVideos(videoId: widget.video.id, max: 8, nextPageToken: '');
+    ListResultVideo videoRes = await VideoClient.instance.getRelatedVideos(
+      widget.video.id,
+      8,
+      '',
+      null,
+    );
     setState(() {
       videosRelated = videoRes;
       nextPageToken = videoRes.nextPageToken;
@@ -40,8 +44,12 @@ class _VideoScreenState extends State<VideoScreen> {
 
   handleLoadMore() async {
     if (nextPageToken != '') {
-      ListResultVideo videoRes = await APIService.instance.getRelatedVideos(
-          videoId: widget.video.id, max: 8, nextPageToken: nextPageToken);
+      ListResultVideo videoRes = await VideoClient.instance.getRelatedVideos(
+        widget.video.id,
+        8,
+        nextPageToken,
+        null,
+      );
       List<Video> newList = videosRelated.list;
       if (videoRes.nextPageToken != nextPageToken) {
         videoRes.list.forEach((video) {

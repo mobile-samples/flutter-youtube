@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_app/models/Model.dart';
-import 'package:youtube_app/screens/channels/playlistsTab/videoPlaylist/widgets/playlist_info_box.dart';
-import 'package:youtube_app/screens/channels/playlistsTab/videoPlaylist/widgets/video_info_detail.dart';
+import 'package:youtube_app/screens/channels/playlists-tab/videoPlaylist/widgets/playlist_info_box.dart';
+import 'package:youtube_app/screens/channels/playlists-tab/videoPlaylist/widgets/video_info_detail.dart';
 import 'package:youtube_app/services/youtube_service.dart';
 import 'package:youtube_app/widgets/loading.dart';
 
@@ -26,12 +26,8 @@ class _VideoPlaylistChannelState extends State<VideoPlaylistChannel> {
   bool isLoading = false;
 
   handleGetVideoListFormChannel() async {
-    ListResultVideo res = await APIService.instance.getVideoList(
-      channelId: '',
-      playlistId: widget.playlist.id,
-      max: 5,
-      nextPageToken: nextPageToken,
-    );
+    ListResultVideo res = await VideoClient.instance
+        .getVideoList(widget.playlist.id, '', 5, nextPageToken, null);
     setState(() {
       videoList = res.list;
       nextPageToken = res.nextPageToken;
@@ -43,12 +39,8 @@ class _VideoPlaylistChannelState extends State<VideoPlaylistChannel> {
     setState(() {
       isLoading = true;
     });
-    ListResultVideo res = await APIService.instance.getVideoList(
-      channelId: '',
-      playlistId: widget.playlist.id,
-      max: 5,
-      nextPageToken: nextPageToken,
-    );
+    ListResultVideo res = await VideoClient.instance
+        .getVideoList(widget.playlist.id, '', 5, nextPageToken, null);
     if (res.nextPageToken != nextPageToken && nextPageToken != '') {
       setState(() {
         videoList.addAll(res.list);
