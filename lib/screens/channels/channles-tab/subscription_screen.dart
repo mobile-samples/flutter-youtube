@@ -17,7 +17,7 @@ class Subscriptions extends StatefulWidget {
 
 class _SubscriptionsState extends State<Subscriptions> {
   late ScrollController controller;
-  late List<SubChannels> channels = [];
+  late List<SubChannel> channels = [];
   bool _isLoading = true;
 
   handleGetSubscriptions() async {

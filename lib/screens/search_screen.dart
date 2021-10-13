@@ -34,7 +34,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   _handleSearch(search) async {
-    ListResultVideo res =
+    YoutubeListResult<Video> res =
         await VideoClient.instance.searchVideos(search, 5, '', null);
     List<Video> videos = [];
     videos.addAll(res.list);
@@ -46,7 +46,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   _handleLoadMore() async {
     if (nextPageToken != '') {
-      ListResultVideo res = (await VideoClient.instance
+      YoutubeListResult<Video> res = (await VideoClient.instance
           .searchVideos(myController.text, 1, nextPageToken, null));
       if (res.nextPageToken != nextPageToken) {
         setState(() {

@@ -16,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String categorySelected = '';
   String nextPageToken = '';
   List<VideoCategory> categories = [];
-  late ListResultVideo videos;
+  late YoutubeListResult<Video> videos;
   @override
   void initState() {
     super.initState();
@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _initVideo() async {
-    ListResultVideo videosRes =
+    YoutubeListResult<Video> videosRes =
         (await VideoClient.instance.getPopularVideos('US', '', 10, '', null));
     List<VideoCategory> categoriesRes =
         await VideoClient.instance.getCatagories('US');
@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       loadingFirst = true;
     });
-    ListResultVideo videosRes = (await VideoClient.instance
+    YoutubeListResult<Video> videosRes = (await VideoClient.instance
         .getPopularVideos('US', categoryId, 5, '', null));
     setState(() {
       categorySelected = categoryId;
@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   handleLoadMore() async {
     if (nextPageToken != '') {
-      ListResultVideo videosRes = (await VideoClient.instance
+      YoutubeListResult<Video> videosRes = (await VideoClient.instance
           .getPopularVideos('US', categorySelected, 5, nextPageToken, null));
       List<Video> newList = videos.list;
       if (videosRes.nextPageToken != nextPageToken) {

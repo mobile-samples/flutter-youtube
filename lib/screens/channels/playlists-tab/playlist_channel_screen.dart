@@ -37,7 +37,7 @@ class _PlaylistChannelState extends State<PlaylistChannel> {
   }
 
   handleGetPlaylistFromChannel() async {
-    ListResultPlaylist res = await VideoClient.instance
+    YoutubeListResult<Playlist> res = await VideoClient.instance
         .getChannelPlaylists(widget.channelId, 5, nextPageToken, null);
 
     setState(() {
@@ -55,7 +55,7 @@ class _PlaylistChannelState extends State<PlaylistChannel> {
     setState(() {
       isLoading = true;
     });
-    ListResultPlaylist res = await VideoClient.instance
+    YoutubeListResult<Playlist> res = await VideoClient.instance
         .getChannelPlaylists(widget.channelId, 1, nextPageToken, null);
     if (res.nextPageToken != nextPageToken && nextPageToken != '') {
       setState(() {

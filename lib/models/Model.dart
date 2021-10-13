@@ -67,7 +67,7 @@ class Channel {
   String id;
   String title;
   String mediumThumbnail;
-  List<SubChannels> channels;
+  List<SubChannel> channels;
 
   Channel(
     this.id,
@@ -81,25 +81,25 @@ class Channel {
       json['title'],
       json['mediumThumbnail'],
       json['channels'] != null
-          ? List<SubChannels>.from(
-              json['channels'].map((x) => SubChannels.fromMap(x)))
+          ? List<SubChannel>.from(
+              json['channels'].map((x) => SubChannel.fromMap(x)))
           : [],
     );
   }
 }
 
-class SubChannels {
+class SubChannel {
   String id;
   String title;
   String mediumThumbnail;
 
-  SubChannels(
+  SubChannel(
     this.id,
     this.title,
     this.mediumThumbnail,
   );
-  factory SubChannels.fromMap(Map<String, dynamic> item) {
-    return SubChannels(
+  factory SubChannel.fromMap(Map<String, dynamic> item) {
+    return SubChannel(
       item['id'],
       item['title'],
       item['mediumThumbnail'],
@@ -130,37 +130,31 @@ class VideoCategory {
   }
 }
 
-class ListResultVideo {
-  List<Video> list;
+class YoutubeListResult<T> {
+  List<T> list;
   String nextPageToken;
 
-  ListResultVideo({
-    required this.list,
-    required this.nextPageToken,
-  });
+  YoutubeListResult(
+    this.list,
+    this.nextPageToken,
+  );
 
-  factory ListResultVideo.fromMap(Map<String, dynamic> json) => ListResultVideo(
-        list: List<Video>.from(json["list"].map((x) => Video.fromMap(x))),
-        nextPageToken:
-            json["nextPageToken"] != null ? json["nextPageToken"] : '',
-      );
-}
-
-class ListResultPlaylist {
-  List<Playlist> list;
-  String nextPageToken;
-
-  ListResultPlaylist({
-    required this.list,
-    required this.nextPageToken,
-  });
-
-  factory ListResultPlaylist.fromMap(Map<String, dynamic> json) =>
-      ListResultPlaylist(
-        list: List<Playlist>.from(json["list"].map((x) => Playlist.fromMap(x))),
-        nextPageToken:
-            json["nextPageToken"] != null ? json["nextPageToken"] : '',
-      );
+  factory YoutubeListResult.fromMap(Map<String, dynamic> json) {
+    final _build = () {
+      switch (T) {
+        case Video:
+          return List<T>.from(json['list'].map((x) => Video.fromMap(x)));
+        case Playlist:
+          return List<T>.from(json['list'].map((x) => Playlist.fromMap(x)));
+        default:
+          return null;
+      }
+    };
+    return YoutubeListResult(
+      json['list'] != null ? _build() ?? [] : [],
+      json['nextPageToken'] != null ? json['nextPageToken'] : '',
+    );
+  }
 }
 
 abstract class Title {

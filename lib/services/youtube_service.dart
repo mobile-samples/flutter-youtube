@@ -21,7 +21,7 @@ class VideoClient {
 
   Future<List<VideoCategory>> getCatagories(String? regionCode) async {
     Map<String, String> parameters = {
-      'regionCode': regionCode!.isNotEmpty ? regionCode : '',
+      'regionCode': regionCode ?? '',
     };
     late String baseUrl = getUrl();
     Uri uri = Uri.http(baseUrl, '/tube/category', parameters);
@@ -84,8 +84,8 @@ class VideoClient {
     }
   }
 
-  Future<ListResultPlaylist> getChannelPlaylists(String channelId, int? max,
-      String? nextPageToken, List<String>? fields) async {
+  Future<YoutubeListResult<Playlist>> getChannelPlaylists(String channelId,
+      int? max, String? nextPageToken, List<String>? fields) async {
     Map<String, String> parameters = {
       'channelId': channelId,
       'limit': max!.isNaN ? '' : max.toString(),
@@ -100,15 +100,13 @@ class VideoClient {
     };
     var res = await http.get(uri, headers: headers);
     if (res.statusCode == 200) {
-      dynamic result = json.decode(res.body);
-      ListResultPlaylist listRes = ListResultPlaylist.fromMap(result);
-      return listRes;
+      return YoutubeListResult.fromMap(json.decode(res.body));
     } else {
       throw json.decode(res.body)['error']['message'];
     }
   }
 
-  Future<ListResultVideo> getPopularVideos(
+  Future<YoutubeListResult<Video>> getPopularVideos(
       String? regionCode,
       String? categoryId,
       int? max,
@@ -129,15 +127,13 @@ class VideoClient {
     };
     var res = await http.get(uri, headers: headers);
     if (res.statusCode == 200) {
-      dynamic result = json.decode(res.body);
-      ListResultVideo listRes = ListResultVideo.fromMap(result);
-      return listRes;
+      return YoutubeListResult.fromMap(json.decode(res.body));
     } else {
       throw json.decode(res.body)['error']['message'];
     }
   }
 
-  Future<ListResultVideo> getRelatedVideos(String videoId, int? max,
+  Future<YoutubeListResult<Video>> getRelatedVideos(String videoId, int? max,
       String? nextPageToken, List<String>? fields) async {
     Map<String, String> parameters = {
       'nextPageToken': (nextPageToken!.length > 0) ? nextPageToken : '',
@@ -152,15 +148,13 @@ class VideoClient {
     };
     var res = await http.get(uri, headers: headers);
     if (res.statusCode == 200) {
-      dynamic result = json.decode(res.body);
-      ListResultVideo listRes = ListResultVideo.fromMap(result);
-      return listRes;
+      return YoutubeListResult.fromMap(json.decode(res.body));
     } else {
       throw json.decode(res.body)['error']['message'];
     }
   }
 
-  Future<ListResultVideo> searchVideos(
+  Future<YoutubeListResult<Video>> searchVideos(
       String q, int? max, String? nextPageToken, List<String>? fields) async {
     Map<String, String> parameters = {
       'nextPageToken': (nextPageToken!.length > 0) ? nextPageToken : '',
@@ -176,16 +170,18 @@ class VideoClient {
     };
     final res = await http.get(uri, headers: headers);
     if (res.statusCode == 200) {
-      dynamic result = json.decode(res.body);
-      ListResultVideo listRes = ListResultVideo.fromMap(result);
-      return listRes;
+      return YoutubeListResult.fromMap(json.decode(res.body));
     } else {
       throw json.decode(res.body)['error']['message'];
     }
   }
 
-  Future<ListResultVideo> getVideoList(String? playlistId, String? channelId,
-      int? max, String? nextPageToken, List<String>? fields) async {
+  Future<YoutubeListResult<Video>> getVideoList(
+      String? playlistId,
+      String? channelId,
+      int? max,
+      String? nextPageToken,
+      List<String>? fields) async {
     Map<String, String> parameters = {
       'nextPageToken': (nextPageToken!.length > 0) ? nextPageToken : '',
       'limit': max!.isNaN ? '' : max.toString(),
@@ -201,9 +197,7 @@ class VideoClient {
     };
     var res = await http.get(uri, headers: headers);
     if (res.statusCode == 200) {
-      dynamic result = json.decode(res.body);
-      ListResultVideo listVideo = ListResultVideo.fromMap(result);
-      return listVideo;
+      return YoutubeListResult.fromMap(json.decode(res.body));
     } else {
       throw json.decode(res.body)['error']['message'];
     }
