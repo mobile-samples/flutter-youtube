@@ -1,8 +1,8 @@
 class VideoCategory {
-  final String id;
-  final String title;
-  final bool assignable;
-  final String channelId;
+  String id;
+  String title;
+  bool assignable;
+  String channelId;
 
   VideoCategory(this.id, this.title, this.assignable, this.channelId);
 }

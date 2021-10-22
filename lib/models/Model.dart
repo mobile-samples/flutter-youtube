@@ -108,10 +108,10 @@ class SubChannel {
 }
 
 class VideoCategory {
-  final String id;
-  final String title;
-  final bool assignable;
-  final String channelId;
+  String id;
+  String title;
+  bool assignable;
+  String channelId;
 
   VideoCategory(
     this.id,
@@ -158,23 +158,23 @@ class YoutubeListResult<T> {
 }
 
 abstract class Title {
-  final String? title;
-  final String? description;
-  final DateTime? publishedAt;
+  String? title;
+  String? description;
+  DateTime? publishedAt;
 
   Title(this.title, this.description, this.publishedAt);
 }
 
 abstract class LocalizedTitle {
-  final String? localizedTitle;
-  final String? localizedDescription;
+  String? localizedTitle;
+  String? localizedDescription;
 
   LocalizedTitle(this.localizedTitle, this.localizedDescription);
 }
 
 abstract class ChannelInfo {
-  final String? channelId;
-  final String? channelTitle;
+  String? channelId;
+  String? channelTitle;
 
   ChannelInfo(this.channelId, this.channelTitle);
 }
@@ -186,48 +186,48 @@ abstract class ListDetail {
 }
 
 abstract class PageInfo {
-  final int? totalResults;
-  final int? resultsPerPage;
+  int? totalResults;
+  int? resultsPerPage;
 
   PageInfo(this.totalResults, this.resultsPerPage);
 }
 
 abstract class ChannelDetail {
-  final RelatedPlaylists? relatedPlaylists;
+  RelatedPlaylists? relatedPlaylists;
 
   ChannelDetail(this.relatedPlaylists);
 }
 
 abstract class RelatedPlaylists {
-  final String? likes;
-  final String? favorites;
-  final String? uploads;
+  String? likes;
+  String? favorites;
+  String? uploads;
 
   RelatedPlaylists(this.likes, this.favorites, this.uploads);
 }
 
 abstract class VideoItemDetail {
-  final String? videoId;
-  final DateTime? videoPublishedAt;
+  String? videoId;
+  DateTime? videoPublishedAt;
 
   VideoItemDetail(this.videoId, this.videoPublishedAt);
 }
 
 abstract class RegionRestriction {
-  final List<String>? allow;
-  final List<String>? blocked;
+  List<String>? allow;
+  List<String>? blocked;
 
   RegionRestriction(this.allow, this.blocked);
 }
 
 abstract class YoutubeVideoDetail {
-  final String? duration;
-  final String? dimension;
-  final String? definition;
-  final String? caption;
-  final bool? licensedContent;
-  final String? projection;
-  final RegionRestriction? regionRestriction;
+  String? duration;
+  String? dimension;
+  String? definition;
+  String? caption;
+  bool? licensedContent;
+  String? projection;
+  RegionRestriction? regionRestriction;
 
   YoutubeVideoDetail(
     this.duration,
